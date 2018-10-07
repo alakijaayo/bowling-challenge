@@ -38,9 +38,17 @@ describe("Frame", function() {
       expect(frame.isSpare()).toBe(true);
     })
 
+    it('throws an error if string is put in place of score', function() {
+      expect(function() { frame.getFirstBowl("Hello"); }).toThrow('Cannot be a string!')
+    })
 
-    // it('throws an error if first bowl is a strike', function () {
-    //   frame.getFirstBowl(10);
-    //   expect(function() {frame.getSecondBowl(1)}).toThrow(new Error ('cannot bowl again if first bowl was a strike'));
-    // })
+    it('throws an error if the number is higher than 10', function() {
+      expect(function() { frame.getFirstBowl(11); }).toThrow('Number cannot be higher than 10!')
+    })
+
+    it('throws an error if person threw a strike with first ball', function() {
+      frame.getFirstBowl(10);
+      expect(function() { frame.getSecondBowl(1); }).toThrow('Cannot be played as player made Strike')
+    })
+
 })
